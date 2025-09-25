@@ -1,0 +1,564 @@
+/* RESET พื้นฐาน */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+ul { margin: 0; padding: 0; list-style: none; }
+
+/* สีแบรนด์ & ตัวช่วย */
+:root{
+  --brand-blue: #0970fa;
+  --brand-orange: #fc7801;
+  --brand-yellow: #ffca08;
+  --black: #111;
+  --text: #1e2329;
+  --muted: #64748b;
+  --border: #e5e7eb;
+  --bg: #ffffff;
+  --bg-alt: #f8fafc;
+  --radius: 16px;
+  --shadow: 0 10px 30px rgba(0,0,0,.08);
+
+  /* เพิ่มตัวแปรความสูงแถบเมนู */
+  --nav-height: 72px;
+}
+
+/* ฟอนต์หลักของเว็บ */
+body {
+  font-family: 'Mali', 'Noto Sans Thai', sans-serif;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.6;
+}
+
+/* หัวข้อใหญ่ */
+h1 {
+  font-family: 'Mali', cursive; /* เน้นใช้ Mali */
+  font-weight: 700;
+}
+
+/* เนื้อหาปกติ */
+p {
+  font-family: 'Mali', 'Noto Sans Thai', sans-serif;
+  font-weight: 400;
+}
+
+
+/* ขนาดเว็บ */
+.container{
+  width: 100%;
+  max-width: 1320px;
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+
+/* ซ่อนสำหรับ screen reader-friendly */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--brand-blue);
+  color: #fff;
+  padding: 8px 16px;
+  z-index: 100;
+  transition: top 0.3s;
+}
+.skip-link:focus { top: 0; }
+
+/* =========================
+   Header & Nav (Fixed)
+   ========================= */
+
+/* ฮีโร่/พื้นหลังส่วนบนของหน้า (คงภาพ bg 800px เดิมไว้) */
+.site-header{
+  height: 800px;
+  /* เดิม: position: sticky; -> เปลี่ยนเป็น relative เพื่อให้ฮีโร่รองรับเมนู fixed */
+  position: relative;
+  top: 0;
+  background: url("../img/bgg.png");
+  background-size: cover;
+  border-bottom: 1px solid var(--border);
+  z-index: 1;
+
+  /* ดันเนื้อหาในเฮดเดอร์ลงเท่าความสูงเมนู เพื่อไม่ให้เมนูทับภาพ */
+  padding-top: var(--nav-height);
+}
+
+/* แถบเมนู ให้ตรึงบนสุด */
+.nav-bar{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  /* เดิมมี min-height; เปลี่ยนเป็นความสูงตายตัวตามตัวแปร */
+  height: var(--nav-height);
+  min-height: var(--nav-height);
+  padding: 0 16px;
+
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(8px);
+  z-index: 1000; /* สูงกว่า section อื่น ๆ */
+  border: 1px solid #e9edf3;
+  border-radius: 0px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.06);
+
+  /* ทำให้ติดบนสุดเสมอ */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+/* จัดเนื้อหาภายในกรอบเมนู */
+.container.nav{
+  max-width: 1320px;
+  margin: 0 auto;
+
+  /* ปรับความสูงให้พอดีกับแถบเมนู fixed */
+  height: var(--nav-height);
+  min-height: var(--nav-height);
+  padding: 0 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* เดิมมีการกำหนดซ้ำที่นี่ ให้คงไว้แต่ไม่ต้องเพิ่มความสูงเกินจากค่า var */
+.site-header .nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--nav-height);
+  gap: 16px;
+}
+
+.logo{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo img{ height: 75px; }
+.logo-mark{
+  font-weight: 800;
+  font-size: 28px;
+  letter-spacing: .5px;
+  color: var(--black);
+}
+
+/* Nav menu */
+.nav-menu ul{
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* ลิงก์เมนูปกติ */
+.nav-menu a {
+  display: inline-block;
+  padding: 10px 12px;
+  font-weight: 600;
+  color: var(--text);
+  border-radius: 99px;
+  transition: background .2s ease, color .2s ease;
+}
+
+/* hover เมนูใด ๆ */
+.nav-menu a:hover {
+  background: var(--brand-blue);
+  color: #fff;
+}
+
+.nav-menu a.is-active {
+  color: #fff;
+  background: var(--brand-blue);
+  border-radius: 999px;
+  padding: 8px 16px;
+}
+
+/* CTA ในเมนู */
+.nav-menu .btn { margin-left: 6px; }
+
+/* ปุ่มสั่งซื้อเฉพาะในเมนู */
+.nav-menu .btn-orange {
+  background: var(--brand-orange);
+  color: #fff !important;
+  padding: 12px 32px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+.nav-menu .btn-orange:hover { filter: brightness(1.08); }
+
+/* Hamburger (mobile) */
+.nav-toggle{
+  display: none;
+  background: transparent;
+  border: 0;
+  padding: 8px;
+  border-radius: 10px;
+}
+.nav-toggle:focus{ outline: 2px solid var(--brand-blue); outline-offset: 2px; }
+.nav-toggle-bar{
+  display: block;
+  width: 26px; height: 3px; background: var(--text);
+  border-radius: 2px; margin: 5px 0;
+}
+
+/* เวลาเลื่อนด้วยลิงก์ #id ให้ไม่โดนเมนูทับหัว */
+[id]{ scroll-margin-top: calc(var(--nav-height) + 12px); }
+
+/* โค้ดแม่แบบปุ่ม (button base class) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition:
+    transform .06s ease,
+    box-shadow .2s ease,
+    background .2s ease,
+    color .2s ease,
+    border-color .2s ease;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary {
+  background: var(--brand-blue);
+  color: #fff;
+  box-shadow: var(--shadow);
+}
+.btn-primary:hover { filter: brightness(1.05); }
+
+/* ====== Mobile tweaks เฉพาะเมนู ====== */
+@media (max-width:768px){
+  :root{ --nav-height: 64px; }
+}
+
+/* ===== (ของเดิมคุณ) ===== */
+@media screen and (max-width:768px){
+  .hamburger{ 
+    display: none;
+  }
+}
+
+/* แก้บล็อก @media เดิมที่ผิดไวยากรณ์ (ทำให้ไฟล์ทั้งไฟล์พัง)
+   เดิมไม่มี selector และสะกด padding ผิด เราเปลี่ยนให้ไม่กระทบ layout */
+@media screen and (max-width:768px) {
+  /* เดิม: 
+     height: auto;
+     panding: 3rem 0;
+     -> ลบออกเพื่อกัน error */
+}
+
+/* ================= ONLY: calculator.html ================= */
+
+/* ===== เฉพาะ calculator.html ===== */
+/* ===== Full-bleed HERO เฉพาะหน้า calculator ===== */
+.page-calculator .calc-home .focus-hero .container{
+  /* ไม่ใช้กรอบ 1320 ของ .container ใน hero */
+  max-width: none;          /* ปลดล็อกความกว้าง */
+  width: 100%;              /* กว้างเต็มหน้าจอ */
+  margin-inline: 0;         /* ไม่ต้อง center */
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* กล่องรูปให้สูงพอดีจอ และชิดขอบซ้าย-ขวาแบบไร้มุมโค้ง */
+.page-calculator .calc-home .hero-img-wrap{
+  height: clamp(220px, 26vw, 360px); /* ปรับได้ตามใจ */
+  border-radius: 0;                   /* เอามุมโค้งออกให้ติดขอบจอ */
+  overflow: hidden;
+}
+
+/* รูปเติมเต็มกล่อง (ครอปส่วนเกินให้สวยแบบดีไซน์) */
+.page-calculator .calc-home .hero-img{
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;           /* อยากเห็นส่วนบน/ล่างมากขึ้น ปรับเป็น 50% 40% หรือ 50% 60% */
+}
+
+/* HEADINGS */
+.calc-home .ta-center{ text-align:center; }
+.calc-home .focus-headings{ padding: 18px 0 8px; }
+.calc-home .focus-title{ font-size:32px; line-height:1.25; font-weight:700; }
+.calc-home .focus-subtitle{ font-size:28px; line-height:1.25; color:rgba(0,0,0,.65); margin-top:4px; }
+
+/* GRID 1320 → 2 คอลัมน์ */
+.calc-home .focus-choices{ padding: 20px 0 72px; }
+.calc-home .choices-grid{ display:grid; grid-template-columns:1fr; gap:28px; }
+@media (min-width:900px){ .calc-home .choices-grid{ grid-template-columns:1fr 1fr; } }
+
+/* CARD – รักษาสัดส่วนกรอบ 585x488 + สี fallback */
+.calc-home .choice-card{
+  position:relative; aspect-ratio:585/488;
+  border-radius:32px; overflow:hidden; display:block; text-decoration:none;
+}
+.calc-home .card-dog{ background:#0970fa; }   /* fallback สีฟ้า */
+.calc-home .card-cat{ background:#fc7801; }   /* fallback สีส้ม */
+
+.calc-home .choice-card .frame-img{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:contain; display:block;
+}
+
+/* overlay */
+.calc-home .choice-card .overlay{ position:absolute; inset:0; pointer-events:none; }
+
+/* ปุ่มแคปซูลเหลือง + เด้ง */
+.calc-home .pill-btn{
+  position:absolute; left: var(--pill-left,34%); top: var(--pill-top,58%);
+  transform: translate(-50%,-50%); pointer-events:auto;
+  font-weight:800; font-size:24px; color:#fff;
+  background: var(--brand-yellow);
+  padding:14px 32px; border-radius:999px;
+  box-shadow: inset 0 -4px 0 rgba(0,0,0,.15), 0 6px 18px rgba(0,0,0,.15);
+  transition: transform .08s, box-shadow .08s;
+}
+.calc-home .choice-card:active .pill-btn{
+  transform: translate(-50%, calc(-50% - 3px)) scale(1.02);
+  box-shadow: inset 0 -2px 0 rgba(0,0,0,.12), 0 10px 22px rgba(0,0,0,.18);
+}
+
+/* คำบรรยาย 16px */
+.calc-home .choice-desc{
+  position:absolute; left: var(--pill-left,34%); top: calc(var(--pill-top,58%) + 12%);
+  transform: translate(-50%,0); font-size:16px; color:#fff;
+  text-shadow:0 1px 2px rgba(0,0,0,.35);
+}
+
+/* ตั้งต้นตำแหน่งปุ่มให้ใกล้เคียง — จูนเพิ่มได้ */
+.calc-home .card-dog{ --pill-left:34%; --pill-top:58%; }
+.calc-home .card-cat{ --pill-left:34%; --pill-top:58%; }
+
+/* ========= HARD FIX เฉพาะหน้า calculator.html ========= */
+
+/* 1) ยุบ header hero 800px ให้เหลือเท่าเมนูบนสุด */
+body.page-calculator header.site-header,
+body.page-calculator .site-header{
+  height: var(--nav-height) !important;
+  min-height: var(--nav-height) !important;
+  padding-top: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border-bottom: 1px solid var(--border);
+}
+body.page-calculator .site-header::before,
+body.page-calculator .site-header::after{
+  content: none !important;
+  display: none !important;
+}
+body.page-calculator .nav-bar{
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+}
+
+/* 2) เผื่อระยะบนให้คอนเทนต์พ้นเมนู fixed */
+body.page-calculator #main.calc-home{
+  padding-top: calc(var(--nav-height) + 8px) !important;
+}
+
+/* 3) (คงไว้) Hero แบบเต็มจอที่คุณเขียน — ถ้าต้องการให้เห็นคอนเทนต์มากขึ้น
+      ค่อยๆ ลด 26vw ลงทีละหน่อยได้ เช่น 24vw หรือ 22vw */
+
+      /* === Trim top gap เฉพาะหน้า calculator.html === */
+
+/* วิธีแนะนำ: ให้ header กินพื้นที่เท่าเมนู แล้ว "ตัด padding-top" ของ main ออก */
+body.page-calculator .site-header{
+  height: var(--nav-height) !important;
+  min-height: var(--nav-height) !important;
+}
+body.page-calculator #main.calc-home{
+  padding-top: 0 !important;       /* <-- ตัดระยะซ้ำซ้อนตรงนี้ */
+}
+.page-calculator .calc-home .focus-hero{
+  margin-top: 0 !important;
+  padding-top: 0 !important;       /* กันกรณีมี padding ใน block hero */
+}
+
+/* ================= ONLY: calculator-dog.html ================= */
+
+/* ยุบ hero header ของหน้า calculator */
+.page-dog .site-header{ height: var(--nav-height); min-height: var(--nav-height); padding-top:0; background:transparent; border-bottom:1px solid var(--border); }
+.page-dog .nav-bar{ position: fixed; top:0; left:0; right:0; z-index:1000; }
+.page-dog .with-fixed-header{ padding-top: calc(var(--nav-height) + 8px); }
+
+.tone-blue{ color: var(--brand-blue); }
+
+/* ส่วนหัวหน้า */
+.calc-dog .page-head{ padding: 10px 0 18px; }
+.calc-dog .breadcrumb{ font-size: 13px; color: var(--muted); display:flex; align-items:center; gap:8px; }
+.calc-dog .breadcrumb a{ color: var(--brand-blue); }
+.calc-dog .page-title{ font-size: 24px; font-weight: 700; margin: 6px 0 4px; }
+.calc-dog .page-sub{ color: var(--muted); margin: 0; }
+
+/* เลย์เอาต์ 3 คอลัมน์ */
+.calc-dog .layout-3col{ display:grid; grid-template-columns: 300px 1fr 360px; gap: 20px; align-items: start; }
+@media (max-width: 1200px){ .calc-dog .layout-3col{ grid-template-columns: 280px 1fr 320px; } }
+@media (max-width: 992px){ .calc-dog .layout-3col{ grid-template-columns: 1fr; } }
+
+/* card/panel */
+.calc-dog .panel{
+  background:#fff; border:1px solid var(--border); border-radius: 20px;
+  box-shadow: var(--shadow); padding: 18px;
+}
+.calc-dog .panel.sticky{ position: sticky; top: calc(var(--nav-height) + 16px); }
+.calc-dog .panel-title{ font-weight: 700; margin: 2px 0 14px; }
+
+/* ฟอร์ม */
+.calc-dog .field{ display:block; margin-bottom: 14px; }
+.calc-dog .field-label{ display:block; font-size:12px; color:var(--muted); margin-bottom:6px; }
+.calc-dog .input, .calc-dog .select{
+  width:100%; border:1px solid var(--border); border-radius:12px; padding:10px 12px; background:#fff;
+}
+
+/* กล่องเป้าหมาย */
+.calc-dog .goal-box{ margin-top: 10px; padding: 12px; border:1px solid var(--border); border-radius:14px; background:#f0f0f0; }
+.calc-dog .goal-line{ font-weight:600;color:#3b2419; }
+.calc-dog .goal-sub{ font-size:12px; color:#3b2419; }
+
+/* วัตถุดิบ */
+.calc-dog .ing-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 12px; max-height: 560px; overflow:auto; padding-right: 4px; }
+@media (max-width: 1200px){ .calc-dog .ing-grid{ grid-template-columns: 1fr; } }
+
+.calc-dog .ing-card{ border:1px solid var(--border); border-radius: 16px; padding: 14px; background:#fff; }
+.calc-dog .ing-card:hover{ box-shadow: 0 8px 24px rgba(0,0,0,.06); }
+
+.calc-dog .ing-head{ display:flex; justify-content:space-between; gap: 12px; }
+.calc-dog .ing-name{ font-weight: 700; color: var(--brand-blue); }
+.calc-dog .ing-unit{ font-size: 12px; color: var(--muted); }
+.calc-dog .ing-amount{ font-size: 12px; color:#333; }
+
+.calc-dog .ing-controls{ display:flex; align-items:center; gap:8px; margin-top: 10px; }
+.calc-dog .ctrl{ width:36px; height:36px; border-radius:10px; border:1px solid var(--border); background:#fff; }
+.calc-dog .ctrl-input{ flex:1; border:1px solid var(--border); border-radius:10px; padding:8px 10px; }
+.calc-dog .ing-meta{ display:flex; flex-wrap:wrap; gap:6px; margin-top: 10px; }
+
+.calc-dog .badge{ font-size: 12px; padding: 6px 10px; border-radius: 999px; background:#eef2ff; color:#1d4ed8; }
+.calc-dog .badge.warn{ background:#fff7ed; color:#b45309; }
+
+/* สรุปผล */
+.calc-dog .sum-row{ margin-bottom: 12px; }
+.calc-dog .sum-label{ font-size: 14px; margin-bottom: 4px; }
+.calc-dog .sum-mini{ display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px; color:#111; }
+.calc-dog .progress{ height:10px; background:#eef2f7; border-radius:999px; overflow:hidden; }
+.calc-dog .progress.small{ height:8px; }
+.calc-dog .progress .bar{ display:block; height:100%; background: var(--brand-blue); width: 0%; }
+.calc-dog .sum-badge{ margin-top:4px; font-size:12px; color:#64748b; }
+.calc-dog .divider{ height:1px; background:var(--border); margin: 12px 0; }
+
+.calc-dog .sum-price{ display:flex; align-items:center; justify-content:space-between; }
+.calc-dog .price{ color:#fc7801; }
+
+.calc-dog .tips{ margin-top: 12px; }
+.calc-dog .tips-title{ font-weight:700; font-size:14px; margin-bottom:6px; }
+.calc-dog .tips-list{ padding-left: 16px; }
+.calc-dog .tip-item{ font-size:12px; list-style: disc; margin: 4px 0; }
+
+/* footer */
+.page-foot{ font-size:12px; color:#6b7280; text-align:center; padding: 32px 0 56px; }
+
+
+/* ================= ONLY calculator-dog: สีสถานะสรุปผล ================= */
+.page-dog :root{
+  --ok:   #10b981; /* เขียว */
+  --warn: #f59e0b; /* ส้ม  */
+  --bad:  #ef4444; /* แดง  */
+}
+
+/* แถบ progress */
+.page-dog .sum-row .progress{
+  height:8px; background:#e9eef4; border-radius:999px; overflow:hidden;
+}
+.page-dog .sum-row .progress .bar{
+  height:100%; width:0; background:var(--brand-blue);
+  transition:width .25s ease;
+}
+/* เปลี่ยนสีตามสถานะ */
+.page-dog .sum-row.is-ok   .progress .bar{ background:var(--ok); }
+.page-dog .sum-row.is-warn .progress .bar{ background:var(--warn); }
+.page-dog .sum-row.is-bad  .progress .bar{ background:var(--bad); }
+
+/* ป้าย “ขาด/เกิน/พอดี” ให้เด่น */
+.page-dog .sum-row .row-diff,
+.page-dog .sum-row .sum-badge{           /* รองรับทั้งชื่อ class ที่คุณมีอยู่เดิม */
+  display:inline-block; margin-top:6px; padding:4px 10px;
+  border-radius:999px; font-size:12px; font-weight:700;
+  border:1px solid transparent;
+}
+.page-dog .sum-row.is-bad  .row-diff,
+.page-dog .sum-row.is-bad  .sum-badge{ background:#fee2e2; color:#b91c1c; border-color:#fecaca; }
+.page-dog .sum-row.is-warn .row-diff,
+.page-dog .sum-row.is-warn .sum-badge{ background:#fff1da; color:#b45309; border-color:#fde68a; }
+.page-dog .sum-row.is-ok   .row-diff,
+.page-dog .sum-row.is-ok   .sum-badge{ background:#e8f7ee; color:#065f46; border-color:#a7f3d0; }
+/* === Progress bars (แก้ให้เส้นกลับมา + เปลี่ยนสีตามสถานะ) === */
+:root{
+  --ok:   #10b981; /* เขียว */
+  --warn: #f59e0b; /* ส้ม */
+  --bad:  #ef4444; /* แดง */
+}
+
+/* กล่องเส้น */
+.panel .sum-row .progress{
+  height: 10px !important;
+  background: #e9eef4;
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* เส้นสีที่วิ่งอยู่ข้างใน — ต้องเป็น block เพื่อให้มีความสูง */
+.panel .sum-row .progress .bar{
+  display: block;          /* <— จุดสำคัญ: ต้องมีบรรทัดนี้ */
+  height: 100%;
+  width: 0%;
+  background: var(--brand-blue);
+  transition: width .25s ease, background-color .2s ease;
+}
+
+.panel .sum-row .progress.small{ height: 6px !important; }
+
+/* เปลี่ยนสีเส้นตามสถานะที่ JS ใส่คลาสไว้ */
+.panel .sum-row.is-ok   .progress .bar{ background: var(--ok); }
+.panel .sum-row.is-warn .progress .bar{ background: var(--warn); }
+.panel .sum-row.is-bad  .progress .bar{ background: var(--bad); }
+
+/* ป้าย ขาด/เกิน/พอดี */
+.panel .sum-row .sum-badge{
+  display:inline-block;
+  margin-top:6px;
+  padding:4px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
+  border:1px solid transparent;
+}
+.panel .sum-row.is-bad  .sum-badge{ background:#fee2e2; color:#b91c1c; border-color:#fecaca; }
+.panel .sum-row.is-warn .sum-badge{ background:#fff1da; color:#b45309; border-color:#fde68a; }
+.panel .sum-row.is-ok   .sum-badge{ background:#e8f7ee; color:#065f46; border-color:#a7f3d0; }
+
+/* ปุ่มสั่งซื้อในแผงสรุปผล (ขวา) */
+.sum-actions{ margin-top:12px; }
+.sum-order{
+  display:block; width:100%; text-align:center;
+  padding:12px 20px; border-radius:999px;
+  background: var(--brand-orange); color:#fff; font-weight:700;
+  box-shadow: var(--shadow);
+  transition: transform .06s ease, filter .2s ease;
+}
+.sum-order:hover{ filter:brightness(1.05); transform: translateY(-1px); }
