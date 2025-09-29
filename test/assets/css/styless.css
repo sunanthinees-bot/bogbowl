@@ -496,5 +496,24 @@ p  { font-family: 'Mali','Noto Sans Thai',sans-serif; }
   }
 }
 
+* ===== WHY BOGBOWL: Mobile (Fix text overflow) ===== */
+@media (max-width: 480px){
+
+  /* ข้อความในการ์ดไม่ให้ล้น */
+  #whybb .whybb__cardTitle,
+  #whybb .whybb__cardDesc {
+    white-space: normal;     /* ✅ บังคับให้ตัดบรรทัด */
+    word-break: break-word;  /* ✅ ตัดคำอัตโนมัติ */
+    overflow-wrap: anywhere; /* ✅ ป้องกันล้นขอบ */
+  }
+
+  /* ให้ padding ข้างในกล่องมากขึ้นนิดหน่อย เพื่อกันขอบ */
+  #whybb .whybb__card {
+    padding: 10px 14px;
+  }
+}
+
+
+
 
 
