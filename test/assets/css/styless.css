@@ -276,7 +276,7 @@ p  { font-family: 'Mali','Noto Sans Thai',sans-serif; }
 /* ===== About: Mobile layout (≤768px) ===== */
 @media (max-width: 768px){
   .about-section{
-    padding-top: 0;         /* ชิดขึ้นมา */
+    padding-top: 0;
     padding-bottom: 0;
   }
 
@@ -287,28 +287,21 @@ p  { font-family: 'Mali','Noto Sans Thai',sans-serif; }
       "img1"
       "img2";
     gap: 16px;
-    padding-inline: 16px;   /* ระยะขอบซ้าย/ขวา */
+    padding-inline: 16px;
   }
 
-  .about-copy{
-    text-align: left;
-    margin-top: 0;          /* ดันขึ้น */
-  }
+  .about-copy{ text-align: left; margin-top: 0; }
   .about-title{
     font-size: clamp(1.6rem, 6.2vw, 2.2rem);
     line-height: 1.38;
     margin-bottom: 1rem;
     transform: skewX(-3deg);
   }
-  .about-desc{
-    font-size: .98rem;
-    line-height: 1.75;
-  }
+  .about-desc{ font-size: .98rem; line-height: 1.75; }
 
   /* มือถือ: โชว์แค่ about-2.png */
-@media (max-width: 768px){
-  .about-img--left{ display: none; }   /* ซ่อนรูปแรก */
-  .about-img--right{ display: block; } /* ให้รูปสองโชว์เต็ม */
+  .about-img--left{ display: none; }
+  .about-img--right{ display: block; }
   .about-img--right img{
     margin-top: -30px;
     width: 100%;
@@ -318,3 +311,190 @@ p  { font-family: 'Mali','Noto Sans Thai',sans-serif; }
     border-radius: 14px;
   }
 }
+
+
+
+/* ===== WHY BOGBOWL (SCOPED, AUTO HEIGHT) - TUNED ===== */
+#whybb{
+  height: auto;
+  padding: 32px 0;
+  background: #fff;
+  overflow: hidden;
+
+  /* ปรับขนาดการ์ด (เล็กลง) */
+  --why-card-h: 130px;  /* เดิม 160px */
+  --why-gap: 12px;      /* เดิม 18px */
+}
+
+/* สองคอลัมน์: ซ้าย/ขวา */
+#whybb .whybb__container{
+  display: flex;
+  align-items: stretch;          /* ให้ซ้าย/ขวาสูงเท่ากัน */
+  justify-content: space-between;
+  gap: 32px;                     /* เดิม 40px */
+  flex-wrap: nowrap;
+}
+
+/* ฝั่งซ้าย */
+#whybb .whybb__left{ flex: 0 1 54%; min-width: 0; display:flex; flex-direction:column; gap:10px; }
+#whybb .whybb__title{ margin:0; font-weight:400; font-size:30px; line-height:1.25; color:#3b2419; transform: skewX(-6deg);}
+#whybb .whybb__brand{ color:var(--brand-yellow); }
+#whybb .whybb__sub{ margin-top:6px; color:#6b7280; }
+
+/* กริดการ์ด (เล็กลง) */
+#whybb .whybb__grid{
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: var(--why-gap);
+}
+#whybb .whybb__card{
+  min-height: var(--why-card-h);
+  border-radius: 28px;           /* เดิม 36px */
+  padding: 16px;                 /* เดิม 22px */
+  box-shadow: 0 10px 24px rgba(0,0,0,.08);
+}
+#whybb .whybb__card--wide{ grid-column: span 2; }
+
+/* น้ำหนักตัวอักษร */
+#whybb .whybb__cardTitle{ margin:6px 0 4px; font-weight:600; font-size:17px; line-height:1.3; }
+#whybb .whybb__cardDesc{ margin:0; font-size:14px; line-height:1.55; font-weight:400; }
+
+/* สีการ์ด */
+#whybb .whybb--blue  { background:#0d6efd; color:#fff; }
+#whybb .whybb--orange{ background:#fd7e14; color:#fff; }
+#whybb .whybb--yellow{ background:#ffca08; color:#3b2419; }
+#whybb .whybb--pale  { background:#f3efe4; color:#111827; }
+#whybb .whybb--navy  { background:#0959ab; color:#fff; }
+
+/* ไอคอนเล็กลงให้สมส่วน */
+#whybb .whybb__icon{
+  width:38px; height:38px; border-radius:12px;
+  display:inline-flex; align-items:center; justify-content:center;
+}
+#whybb .whybb__icon svg{ width:18px; height:18px; }
+
+/* ปุ่ม (เดิม) */
+#whybb .whybb__cta{ display:inline-block; margin-top:14px; background:var(--brand-blue); color:#fff; font-weight:800; padding:10px 16px; border-radius:12px; }
+
+/* ——— รูปด้านขวา: ยาวเท่ากับความสูงกริดซ้าย + ไม่มีพื้นเหลือง ——— */
+#whybb .whybb__right{
+  flex: 0 1 46%;
+  /* ความสูงเท่ากับ 3 แถวของกริดซ้าย + 2 ช่องไฟ */
+  min-height: calc(var(--why-card-h) * 3 + var(--why-gap) * 2);
+  display: flex; align-items: center; justify-content: center; /* จัดกึ่งกลาง */
+  border-radius: 24px;
+  overflow: hidden;
+  background: transparent;   /* ไม่เอาสีพื้น */
+}
+#whybb .whybb__imgBg{ display: none; }  /* ❌ ตัดพื้นเหลืองทิ้ง */
+#whybb .whybb__img{
+  position: static;          /* ❌ ไม่ absolute เพื่อไม่ให้เยื้อง */
+  width: 100%; height: 100%;
+  object-fit: contain;       /* ไม่ครอปภาพ */
+  object-position: center;   /* จัดกลางพอดี */
+  display: block;
+}
+
+/* กัน CSS อื่นมากระทบรูป */
+#whybb img{ max-width:100%; float:none; }
+
+/* ===== WHY BOGBOWL: Mobile = ย่อทั้งชุด + รูปไว้ล่าง ===== */
+@media (max-width: 480px){
+  /* ระยะขอบรวมเล็กลง */
+  #whybb{ padding: 16px 0; }
+
+  /* เรียงบน-ล่าง: การ์ดก่อน รูปตามหลัง */
+  #whybb .whybb__container{
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  /* ---------- หัวเรื่อง ---------- */
+  /* ให้หัวเรื่องชิดขึ้น และแบ่งบรรทัดสวยๆ */
+ #whybb .whybb__title{
+  font-size: clamp(1.6rem, 6.2vw, 2.2rem);
+  line-height: 1.38;
+  word-break: keep-all;    /* ไม่ตัดคำกลางประโยค */
+  white-space: normal;     /* ให้ตัดบรรทัดปกติ */
+}
+
+#whybb .whybb__title span{
+  display: inline-block;   /* ✅ ทำให้ “Bogbowl” อยู่บรรทัดใหม่ */
+}
+  /* คำอธิบายใต้หัวเรื่อง */
+  #whybb .whybb__sub{
+    font-size: 13px;
+    margin: 0 0 10px;
+  }
+  /* ใช้กับ <span class="no-wrap">…</span> เพื่อ “ของ Bogbowl” ไม่แยกบรรทัด */
+  #whybb .no-wrap{ white-space: nowrap; }
+
+  /* ---------- การ์ดเหตุผล (คง 2 คอลัมน์ แต่ย่อให้เล็ก) ---------- */
+  #whybb{ --why-card-h: 88px; --why-gap: 8px; }   /* ปรับเลขนี้ถ้าอยากเล็ก/ใหญ่ขึ้น */
+
+  #whybb .whybb__grid{
+    grid-template-columns: repeat(2, minmax(0,1fr)); /* ยัง 2 คอลัมน์ */
+    gap: var(--why-gap);
+    margin-top: 8px;
+  }
+
+  #whybb .whybb__card{
+    min-height: var(--why-card-h);
+    padding: 6px 10px 8px;     /* ลด padding-top ให้หัวข้อไม่ถูกดันลง */
+    border-radius: 16px;
+  }
+
+  /* ไอคอนเล็กลง ไม่ให้ดันบรรทัด */
+  #whybb .whybb__icon{
+    width: 26px; height: 26px; border-radius: 8px;
+    margin-bottom: 2px;
+  }
+  #whybb .whybb__icon svg{ width: 12px; height: 12px; }
+
+  /* ตัวหนังสือในการ์ด: ไม่ตัดกลางคำไทย และย่อขนาดให้อ่านง่าย */
+  #whybb .whybb__cardTitle{
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0 0 2px;
+    line-height: 1.2;
+    word-break: keep-all;
+    line-break: loose;
+    hyphens: none;
+  }
+  #whybb .whybb__cardDesc{
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0;
+    word-break: keep-all;
+    line-break: loose;
+    hyphens: none;
+    text-wrap: pretty;
+  }
+   .no-wrap-mobile {
+    white-space: nowrap;  /* ✅ ห้ามขึ้นบรรทัด */
+  }
+}
+
+  /* ---------- รูปไว้ล่าง ไม่ล้น ---------- */
+  #whybb .whybb__right{
+    order: 2;
+    width: 100%;
+    max-width: 86%;
+    margin: 0 auto;
+    min-height: auto;
+    aspect-ratio: auto;
+  }
+  #whybb .whybb__imgBg{ display: none; }  /* ตัดพื้นเหลือง */
+  #whybb .whybb__img{
+    position: static;
+    width: 100%; height: auto;
+    object-fit: contain; object-position: center;
+    display: block;
+  }
+}
+
+
+
