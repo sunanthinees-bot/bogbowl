@@ -464,5 +464,270 @@ p  { font-family: 'Mali','Noto Sans Thai',sans-serif; }
   }
 }
 
+/* ========== STORY / FARM TO TABLE ========== */
+.story-section{
+  background:#fffaf6;          /* bg-gray-50 */
+  padding-block:4rem;          /* py-16 */
+}
+
+.story-grid{
+  display:grid;
+  gap:2.5rem;                   /* เทียบ tailwind gap-10 */
+  align-items:start;
+}
+
+.story-media,
+.story-content{ /* เผื่อไว้ */
+}
+
+.order-1{ order:1; }
+.order-2{ order:2; }
+
+@media (min-width:768px){
+  .story-grid{
+    grid-template-columns: 1fr 1fr; /* md:grid-cols-2 */
+    align-items:center;
+  }
+  .md-order-1{ order:1; }
+  .md-order-2{ order:2; }
+}
+
+.story-img{
+  width:100%;
+  aspect-ratio: 4 / 3;
+  object-fit:cover;             /* เหมือน object-cover */
+  border-radius: 1.5rem;        /* rounded-3xl */
+  display:block;
+}
+
+.story-title {
+  font-weight: 400;
+  color: #342216;          /* slate-900 */
+  line-height: 1.45;
+  font-size: 30px;
+  margin-bottom: .75rem;
+  display: inline-block;   /* เพื่อให้ transform ทำงานพอดี */
+  transform: skewX(-6deg); /* เอียงเล็กน้อย */
+  transform-origin: left center;
+}
+
+.story-stack{
+  display:grid;
+  gap:1rem;
+  margin-top:1rem;
+}
+
+.story-item{
+  display:flex;
+  align-items:flex-start;
+  gap:.75rem;
+}
+
+.story-icon{
+  width:20px; height:20px;
+  margin-top:2px;
+  flex:0 0 20px;
+  color:#111827;                /* มืดพออ่าน */
+}
+
+.story-text{
+  color:#374151;                /* text-gray-700 */
+  margin:0;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+
+.story-btn{
+  display:inline-block;
+  margin-top:1.5rem;            /* mt-6 */
+  background:var(--brand-blue);           /* sky-600 */
+  color:#fff;
+  font-weight:600;              /* font-semibold */
+  padding:.75rem 1.25rem;       /* px-5 py-3 */
+  border-radius:.75rem;         /* rounded-xl */
+  text-decoration:none;
+  transition: background .2s ease;
+}
+.story-btn:hover{ background:var(--brand-blue); color:black; } /* sky-700 */
+
+
+
+/* ================== PRODUCTS ================== */
+.products-section{
+  background:#fffaf6;             /* อ่อนลงให้ใกล้ภาพต้นแบบ */
+  padding: 3.5rem 1.25rem;
+}
+.products-title{
+  text-align:center;
+   font-weight: 400;
+  color: #342216;
+  line-height: 1.45;
+  font-size: 30px;
+  margin-bottom: .75rem;
+  transform: skewX(-6deg);
+}
+.products-title span{ color:#0970fa; } /* คำว่า Bogbowl เป็นน้ำเงิน */
+.products-sub{
+  text-align:center;
+  color: #605E5E;     /* slate-600 */
+  margin:0 0 1.75rem;
+  font-size:16px;
+  line-height:1.7;
+}
+
+
+/* Grid */
+.products-grid{
+  display:grid;
+  gap: 1.5rem;
+}
+@media (min-width: 768px){
+  .products-grid{ grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Card */
+.product-card{
+  position: relative;
+  background:#fff;
+  border-radius: 18px;           /* โค้งใหญ่ */
+  padding: 1.25rem 1.25rem 1rem;
+  box-shadow: 0 10px 28px rgba(0,0,0,.08);
+  border: 1px solid rgba(0,0,0,.06);
+}
+
+/* Badge เหลืองมุมขวาบน */
+.product-badge{
+  position:absolute;
+  top: .9rem; right: 1rem;
+  background:#f7dd1e;
+  color:#1f2937;
+  font-size: 13px;
+  padding: .35rem .75rem;
+  border-radius: 999px;
+  line-height:1;
+}
+
+/* ส่วนหัวในการ์ด */
+.product-head{ margin: .25rem 0 .5rem; }
+.product-title{
+  margin:0;
+  font-weight: 400;
+  font-size: 30px;
+  color:#342216;
+}
+
+.product-sub{
+  font-size: 13px;
+  color:#64748b;
+  margin-top: .15rem;
+}
+
+/* รายการจุด */
+.product-points{
+  margin: .5rem 0 1rem;
+  padding-left: 1.1rem;
+}
+.product-points li{
+  list-style: disc;
+  line-height: 1.7;
+  margin: .25rem 0;
+  color: #342216;
+  font-size: 14px;
+}
+
+/* เส้นแบ่งกลางการ์ด */
+.product-sep{
+  height:1px;
+  background: rgba(0,0,0,.08);
+  margin: .25rem 0 .9rem;
+}
+
+/* แถวล่าง: ราคา + ปุ่ม */
+.product-foot{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:.75rem;
+}
+.product-price{
+  color:#0f172a;
+  font-size: 14px;
+  font-weight: 400;
+}
+.btn-orange{
+  display:inline-block;
+  background:#fc7801;
+  color:#fff;
+  padding:.6rem 1.1rem;
+  border-radius: 14px;
+  font-weight:700;
+  text-decoration:none;
+  box-shadow: 0 6px 14px rgba(252,120,1,.35);
+  transition: transform .08s ease, opacity .2s ease;
+  white-space: nowrap;
+}
+.btn-orange:hover{ opacity:.95; }
+.btn-orange:active{ transform: translateY(1px); }
+.btn-orange.pill{ border-radius: 999px; }
+
+/* ปรับมือถือ: ปุ่มลงบรรทัดถัดไปและเต็มความกว้างถ้าจอแคบมาก */
+@media (max-width:420px){
+  .product-foot{ flex-direction:column; align-items:stretch; }
+  .btn-orange{ text-align:center; }
+}
+
+/* ====== PRODUCTS: CTA (ชั่งตัก) ====== */
+.products-cta{
+  background:#0970fa;
+  color:#fff;
+  border-radius:1rem;
+  padding:1.5rem;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:1rem;
+  margin-top:2rem;
+  margin-bottom:2rem;
+}
+@media (min-width:768px){
+  .products-cta{
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-between;
+  }
+}
+.products-cta__text{ flex:1; text-align:center; }
+@media (min-width:768px){
+  .products-cta__text{ text-align:left; }
+}
+.products-cta__title{
+  margin:0;
+  font-size:20px;        /* ~ text-xl */
+  font-weight:700;
+}
+.products-cta__desc{
+  margin:.5rem 0 0;
+  font-size:14px;
+  color:rgba(255,255,255,.9);
+}
+.products-cta__action{ text-align:center; }
+.products-cta__price{
+  font-size:18px;        /* ~ text-lg */
+  font-weight:700;
+  color:#f7dd1e;
+}
+.products-cta__unit{
+  font-size:12px;
+  margin-top:.25rem;
+  opacity:.95;
+}
+
+/* ====== PRODUCTS: ปุ่มท้ายส่วน ====== */
+.products-footer{ text-align:center; }
+.btn-lg{ font-size:16px; padding:.8rem 1.5rem; }
+
+
+
 
 
