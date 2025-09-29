@@ -497,7 +497,7 @@ p  { font-family: 'Mali','Noto Sans Thai',sans-serif; }
 }
 
 * ===== WHY BOGBOWL: Mobile (Fix text overflow) ===== */
-@media (max-width: 480px){
+@media (max-width: 758px){
 
   /* ข้อความในการ์ดไม่ให้ล้น */
   #whybb .whybb__cardTitle,
@@ -512,6 +512,7 @@ p  { font-family: 'Mali','Noto Sans Thai',sans-serif; }
     padding: 10px 14px;
   }
 }
+
 
 
 
