@@ -399,122 +399,70 @@ p  { font-family: 'Mali','Noto Sans Thai',sans-serif; }
 /* กัน CSS อื่นมากระทบรูป */
 #whybb img{ max-width:100%; float:none; }
 
-/* ===== WHY BOGBOWL: Mobile = ย่อทั้งชุด + รูปไว้ล่าง ===== */
+/* ===== WHY BOGBOWL: Mobile ===== */
 @media (max-width: 480px){
-  /* ระยะขอบรวมเล็กลง */
-  #whybb{ padding: 16px 0; }
 
-  /* เรียงบน-ล่าง: การ์ดก่อน รูปตามหลัง */
+  /* ระยะขอบรวม */
+  #whybb{ padding:16px 0; }
+
+  /* เรียงบน-ล่าง */
   #whybb .whybb__container{
     flex-direction: column;
-    gap: 16px;
+    gap:16px;
     align-items: stretch;
   }
 
-  /* ---------- หัวเรื่อง ---------- */
-  /* ให้หัวเรื่องชิดขึ้น และแบ่งบรรทัดสวยๆ */
- #whybb .whybb__title{
-  font-size: clamp(1.6rem, 6.2vw, 2.2rem);
-  line-height: 1.38;
-  word-break: keep-all;    /* ไม่ตัดคำกลางประโยค */
-  white-space: normal;     /* ให้ตัดบรรทัดปกติ */
-}
-
-#whybb .whybb__title span{
-  display: inline-block;   /* ✅ ทำให้ “Bogbowl” อยู่บรรทัดใหม่ */
-}
-  /* คำอธิบายใต้หัวเรื่อง */
-  #whybb .whybb__sub{
-    font-size: 13px;
-    margin: 0 0 10px;
-  }
-  /* ใช้กับ <span class="no-wrap">…</span> เพื่อ “ของ Bogbowl” ไม่แยกบรรทัด */
-  #whybb .no-wrap{ white-space: nowrap; }
-
-  /* ---------- การ์ดเหตุผล (คง 2 คอลัมน์ แต่ย่อให้เล็ก) ---------- */
-  #whybb{ --why-card-h: 88px; --why-gap: 8px; }   /* ปรับเลขนี้ถ้าอยากเล็ก/ใหญ่ขึ้น */
-
-  #whybb .whybb__grid{
-    grid-template-columns: repeat(2, minmax(0,1fr)); /* ยัง 2 คอลัมน์ */
-    gap: var(--why-gap);
-    margin-top: 8px;
-  }
-
-  #whybb .whybb__card{
-    min-height: var(--why-card-h);
-    padding: 6px 10px 8px;     /* ลด padding-top ให้หัวข้อไม่ถูกดันลง */
-    border-radius: 16px;
-  }
-
-  /* ไอคอนเล็กลง ไม่ให้ดันบรรทัด */
-  #whybb .whybb__icon{
-    width: 26px; height: 26px; border-radius: 8px;
-    margin-bottom: 2px;
-  }
-  #whybb .whybb__icon svg{ width: 12px; height: 12px; }
-
-  /* ตัวหนังสือในการ์ด: ไม่ตัดกลางคำไทย และย่อขนาดให้อ่านง่าย */
-  #whybb .whybb__cardTitle{
-    font-size: 13px;
-    font-weight: 600;
-    margin: 0 0 2px;
-    line-height: 1.2;
+  /* หัวเรื่อง */
+  #whybb .whybb__title{
+    font-size: clamp(1.6rem, 6.2vw, 2.2rem);
+    line-height: 1.38;
     word-break: keep-all;
-    line-break: loose;
-    hyphens: none;
+    white-space: normal;
+  }
+  #whybb .whybb__title span{ display:inline-block; }
+  #whybb .whybb__sub{ font-size:13px; margin:0 0 10px; }
+  #whybb .no-wrap{ white-space:nowrap; }
+
+  /* การ์ด: คง 2 คอลัมน์ แต่ย่อทุกอย่าง */
+  #whybb{ --why-card-h:88px; --why-gap:8px; }
+  #whybb .whybb__grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:var(--why-gap);
+    margin-top:8px;
+  }
+  #whybb .whybb__card{
+    min-height:var(--why-card-h);
+    padding:10px 14px;          /* กันชิดขอบ */
+    border-radius:16px;
+  }
+  #whybb .whybb__icon{ width:26px; height:26px; border-radius:8px; margin-bottom:2px; }
+  #whybb .whybb__icon svg{ width:12px; height:12px; }
+
+  /* ข้อความในการ์ด: ห้ามล้นกรอบ */
+  #whybb .whybb__cardTitle{
+    font-size:13px; font-weight:600; margin:0 0 2px;
+    line-height:1.25; word-break:keep-all; line-break:loose; hyphens:none;
   }
   #whybb .whybb__cardDesc{
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 1.5;
-    margin: 0;
-    word-break: keep-all;
-    line-break: loose;
-    hyphens: none;
-    text-wrap: pretty;
+    font-size:12px; font-weight:400; line-height:1.55; margin:0;
+    white-space:normal;            /* ✅ ให้ตัดบรรทัดปกติ */
+    word-break:break-word;         /* ✅ ตัดคำยาว ๆ */
+    overflow-wrap:anywhere;        /* ✅ ป้องกันล้นขอบ */
+    text-wrap:pretty;
   }
-   .no-wrap-mobile {
-    white-space: nowrap;  /* ✅ ห้ามขึ้นบรรทัด */
-  }
-}
+  .no-wrap-mobile{ white-space:nowrap; } /* ใช้กับ “โปรไบโอติก” */
 
-  /* ---------- รูปไว้ล่าง ไม่ล้น ---------- */
+  /* รูปไว้ล่าง ไม่ล้น */
   #whybb .whybb__right{
-    order: 2;
-    width: 100%;
-    max-width: 86%;
-    margin: 0 auto;
-    min-height: auto;
-    aspect-ratio: auto;
+    order:2; width:100%; max-width:86%; margin:0 auto;
+    min-height:auto; aspect-ratio:auto;
   }
-  #whybb .whybb__imgBg{ display: none; }  /* ตัดพื้นเหลือง */
+  #whybb .whybb__imgBg{ display:none; }
   #whybb .whybb__img{
-    position: static;
-    width: 100%; height: auto;
-    object-fit: contain; object-position: center;
-    display: block;
+    position:static; width:100%; height:auto; object-fit:contain; object-position:center;
+    display:block;
   }
 }
-
-* ===== WHY BOGBOWL: Mobile (Fix text overflow) ===== */
-@media (max-width: 758px){
-
-  /* ข้อความในการ์ดไม่ให้ล้น */
-  #whybb .whybb__cardTitle,
-  #whybb .whybb__cardDesc {
-    white-space: normal;     /* ✅ บังคับให้ตัดบรรทัด */
-    word-break: break-word;  /* ✅ ตัดคำอัตโนมัติ */
-    overflow-wrap: anywhere; /* ✅ ป้องกันล้นขอบ */
-  }
-
-  /* ให้ padding ข้างในกล่องมากขึ้นนิดหน่อย เพื่อกันขอบ */
-  #whybb .whybb__card {
-    padding: 10px 14px;
-  }
-}
-
-
-
 
 
 
