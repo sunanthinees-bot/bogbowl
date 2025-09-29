@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>bogbowl — อาหารปรุงสุกสำหรับสัตว์เลี้ยง</title>
+
+  <!-- ฟอนต์ -->
+  <!-- Google Font: Kanit (มีทั้งตัวตรงและตัวเอียง) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+
+  <!-- ✅ ใช้ชื่อให้ตรงไฟล์จริง -->
+  <link rel="stylesheet" href="assets/css/styless.css">
+</head>
+<body>
+
+  <!-- ไม่มีปุ่มที่อยู่นอก header อีกแล้วนะ -->
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="nav-bar">
+      <div class="container nav">
+        <a class="logo" href="index.html" aria-label="หน้าแรก bogbowl">
+          <img src="assets/img/LOGO BOGBOWL.png" alt="โลโก้ bogbowl" />
+        </a>
+
+        <!-- ✅ ปุ่มอยู่ข้างใน .container.nav เท่านั้น -->
+        <button id="nav-toggle" class="nav-toggle" aria-label="เปิดเมนู" aria-expanded="false">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+
+        <nav class="nav-menu" id="nav-menu" aria-label="เมนูหลัก">
+          <ul>
+            <li><a class="is-active" href="index.html">หน้าหลัก</a></li>
+            <li><a href="about.html">เกี่ยวกับ</a></li>
+            <li><a href="menu.html">เมนูอาหาร</a></li>
+            <li><a href="calculator.html">คำนวณความต้องการ</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a class="btn btn-orange" href="order.html">สั่งซื้อ</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- WELCOME / HERO -->
+  <section id="welcome" class="welcome-hero relative text-white">
+    <div class="welcome-hero__overlay" aria-hidden="true"></div>
+    <img src="assets/img/banner-3.png" alt="bogbowl hero" class="welcome-hero-img">
+    <div class="mx-auto w-full max-w-7xl px-4 md:px-6 h-full relative z-10">
+      <div class="flex h-full items-center justify-center text-center">
+        <div class="fade-up"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JS: toggle เมนู -->
+  <script>
+  (function () {
+    const $ = (s, c = document) => c.querySelector(s);
+    const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
+
+    const navToggle = $('#nav-toggle');
+    const navMenu = $('#nav-menu');
+
+    if (navToggle && navMenu) {
+      navToggle.addEventListener('click', () => {
+        const open = navMenu.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+
+      // ปิดเมนูเมื่อกดลิงก์
+      navMenu.addEventListener('click', (e) => {
+        if (e.target.tagName.toLowerCase() === 'a' && navMenu.classList.contains('open')) {
+          navMenu.classList.remove('open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    // ไฮไลต์เมนูปัจจุบัน
+    const path = location.pathname.split('/').pop() || 'index.html';
+    $$('#nav-menu a').forEach(a => {
+      a.classList.toggle('is-active', a.getAttribute('href') === path);
+    });
+  })();
+  </script>
+</body>
+</html>
+
+<!-- ABOUT -->
+<section id="about" class="about-section">
+  <div class="container about-grid">
+    <!-- รูปซ้าย: ใหญ่ กิน 2 แถว -->
+    <figure class="about-img about-img--left">
+      <img src="assets/img/about-1.png" alt="อาหารปรุงสดใหม่ bogbowl">
+    </figure>
+
+    <!-- ข้อความขวาบน -->
+    <div class="about-copy">
+      <div class="eyebrow">เกี่ยวกับเรา</div>
+      <h2 class="about-title">
+        อาหารปรุงสดใหม่สำหรับ<br>เพื่อนสี่ขาของคุณ
+      </h2>
+      <p class="about-desc">
+        bogbowl ร่วมพัฒนาสูตรกับสัตวแพทย์ คัดสรรวัตถุดิบธรรมชาติ
+        ปรุงสุก สะอาด ปลอดภัย เน้นโปรตีนคุณภาพ ไขมันเหมาะสม
+        เพื่อให้สุนัขและแมวของคุณอิ่มอร่อยและสุขภาพดีในทุกมื้อ
+      </p>
+
+      <a href="about.html" class="btn btn--brand about-btn">อ่านต่อ</a>
+    </div>
+
+    <!-- รูปขวาล่าง: เล็ก -->
+    <figure class="about-img about-img--right">
+      <img src="assets/img/about-2.png" alt="เมนูตัวอย่าง bogbowl">
+    </figure>
+  </div>
+</section>

@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>bogbowl — คำนวณสุนัข</title>
+
+ <!-- Google Font: Kanit (มีทั้งตัวตรงและตัวเอียง) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+
+
+  <!-- CSS หลัก -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+  
+  
+  <script src="assets/js/app.js" defer></script>
+</body>
+</html>
+</head>
+<body class="page-calculator page-dog">
+  <!-- Header (คงเดิมจาก calculator.html) -->
+  <header class="site-header">
+    <div class="nav-bar">
+      <div class="container nav">
+        <a class="logo" href="index.html" aria-label="หน้าแรก bogbowl">
+          <img src="assets/img/LOGO BOGBOWL.png" alt="โลโก้ bogbowl" />
+        </a>
+
+         <!-- ✅ ปุ่มอยู่ข้างใน .container.nav เท่านั้น -->
+        <button id="nav-toggle" class="nav-toggle" aria-label="เปิดเมนู" aria-expanded="false">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+
+        <nav class="nav-menu" id="nav-menu" aria-label="เมนูหลัก">
+          <ul>
+            <li><a href="index.html">หน้าหลัก</a></li>
+            <li><a href="about.html">เกี่ยวกับ</a></li>
+            <li><a href="menu.html">เมนูอาหาร</a></li>
+            <li><a class="is-active" href="calculator.html">คำนวณความต้องการ</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a class="btn btn-orange" href="order.html">สั่งซื้อ</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main id="main" class="calc-dog with-fixed-header">
+    <section class="page-head container">
+      <nav class="breadcrumb">
+        <a href="calculator.html">หน้าแรกคำนวณ</a>
+        <span>/</span>
+        <span>สุนัข</span>
+      </nav>
+      <h1 class="page-title">คำนวณเมนูแบบเลือกตักเอง — <span class="tone-blue">สุนัข</span></h1>
+      <p class="page-sub">กรอกข้อมูลน้ำหนัก เลือกช่วงอายุ/กิจกรรม </p>
+    </section>
+
+    <section class="container layout-3col">
+      <!-- LEFT: ตั้งค่าพื้นฐาน -->
+      <aside class="panel">
+        <h2 class="panel-title">ข้อมูลพื้นฐาน</h2>
+
+        <label class="field">
+          <span class="field-label">น้ำหนักสุนัข (Dog's Weight) (kg.)</span>
+          <input id="weight" type="number" min="0" step="0.1" class="input" placeholder="เช่น 14">
+        </label>
+
+        <label class="field">
+          <span class="field-label">อายุสุนัข (Dog's Age)</span>
+          <select id="ageKey" class="select">
+            <option value="4_5m">4 - 5 เดือน</option>
+            <option value="6_7m">6 - 7 เดือน</option>
+            <option value="8_9m">8 - 9 เดือน</option>
+            <option value="10_12m">10 - 12 เดือน</option>
+            <option value="1_2y">1 - 2 ขวบ</option>
+            <option value="3_7y" selected>3 - 7 ขวบ</option>
+            <option value="8y_up">มากกว่า 8 ขวบ</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span class="field-label">ระดับกิจกรรม/ความแอคทีฟ (Dog's activity)</span>
+          <select id="activity" class="select">
+            <option value="low">ออกกำลังกายน้อย/ไม่แอคทีฟ / Low</option>
+            <option value="mod" selected>ออกกำลังกายบ้าง/แอคทีฟปานกลาง / Moderate</option>
+            <option value="high">ออกกำลังกายสม่ำเสมอ/แอคทีฟมาก / High</option>
+          </select>
+        </label>
+
+        <!-- เป้าหมายต่อวัน  -->
+        <div class="goal-box">
+          <div class="goal-line">
+            ปริมาณแนะนำ (ต่อวัน)  ≈ <b id="target-grams">—</b> g/day
+          </div>
+          <div class="goal-sub">
+            พลังงานแนะนำ (ต่อวัน)  ≈ <span id="target-mer">—</span> kcal/day
+          </div>
+        </div>
+
+         <!-- ข้อความเพิ่มเติม -->
+  <p class="goal-note">
+    *หากมีความกังวลด้านสุขภาพเพิ่มเติม เช่นโซเดียม ภูมิคุ้มกัน ขนและผิวหนัง แนะนำซื้อสูตรเฉพาะของทางร้านค่ะ
+  </p>
+  
+</div>
+      </aside>
+
+      <!-- MIDDLE: เลือกวัตถุดิบ -->
+      <section class="panel">
+        <h3 class="panel-title">เลือกวัตถุดิบ</h3>
+
+        <div class="ing-grid" id="ingredient-list">
+          <!-- 1. อกไก่ไร้หนัง -->
+          <article class="ing-card" data-name="อกไก่ไร้หนัง">
+            <header class="ing-head">
+              <div>
+                <div class="ing-name">อกไก่ไร้หนัง</div>
+                <div class="ing-unit">หน่วย: กรัม</div>
+              </div>
+              <span class="ing-amount" data-show-grams>0 g</span>
+            </header>
+            <div class="ing-controls">
+              <button class="ctrl" data-step="-10">−</button>
+              <input class="ctrl-input" type="number" inputmode="decimal" placeholder="กรัม" value="">
+              <button class="ctrl" data-step="+10">+</button>
+            </div>
+            <footer class="ing-meta">
+              <span class="badge warn">พลังงาน <span data-kcal>0</span> kcal</span>
+              <span class="badge">≈ ราคา <span data-price>0</span> บาท</span>
+            </footer>
+          </article>
+
+          <!-- 2. ปลาทู -->
+          <article class="ing-card" data-name="ปลาทู">
+            <header class="ing-head">
+              <div>
+                <div class="ing-name">ปลาทู</div>
+                <div class="ing-unit">หน่วย: กรัม</div>
+              </div>
+              <span class="ing-amount" data-show-grams>0 g</span>
+            </header>
+            <div class="ing-controls">
+              <button class="ctrl" data-step="-10">−</button>
+              <input class="ctrl-input" type="number" placeholder="กรัม" value="">
+              <button class="ctrl" data-step="+10">+</button>
+            </div>
+            <footer class="ing-meta">
+              <span class="badge warn">พลังงาน <span data-kcal>0</span> kcal</span>
+              <span class="badge">≈ ราคา <span data-price>0</span> บาท</span>
+            </footer>
+          </article>
+
+          <!-- 3. ไข่ต้ม (หน่วยเป็นฟอง ~50g) -->
+          <article class="ing-card" data-name="ไข่ต้ม" data-grams-per-unit="50">
+            <header class="ing-head">
+              <div>
+                <div class="ing-name">ไข่ต้ม</div>
+                <div class="ing-unit">หน่วย: ฟอง (≈ 50 g/ฟอง)</div>
+              </div>
+              <span class="ing-amount" data-show-grams>0 g</span>
+            </header>
+            <div class="ing-controls">
+              <button class="ctrl" data-step="-1">−</button>
+              <input class="ctrl-input" type="number" placeholder="ฟอง" value="">
+              <button class="ctrl" data-step="+1">+</button>
+            </div>
+            <footer class="ing-meta">
+              <span class="badge warn">พลังงาน <span data-kcal>0</span> kcal</span>
+              <span class="badge">≈ ราคา <span data-price>0</span> บาท</span>
+            </footer>
+          </article>
+
+          <!-- 4. ฟักทองต้ม -->
+          <article class="ing-card" data-name="ฟักทองต้ม">
+            <header class="ing-head">
+              <div>
+                <div class="ing-name">ฟักทองต้ม</div>
+                <div class="ing-unit">หน่วย: กรัม</div>
+              </div>
+              <span class="ing-amount" data-show-grams>0 g</span>
+            </header>
+            <div class="ing-controls">
+              <button class="ctrl" data-step="-10">−</button>
+              <input class="ctrl-input" type="number" placeholder="กรัม" value="">
+              <button class="ctrl" data-step="+10">+</button>
+            </div>
+            <footer class="ing-meta">
+              <span class="badge warn">พลังงาน <span data-kcal>0</span> kcal</span>
+              <span class="badge">≈ ราคา <span data-price>0</span> บาท</span>
+            </footer>
+          </article>
+
+          <!-- 5. ข้าวสวย -->
+          <article class="ing-card" data-name="ข้าวสวย">
+            <header class="ing-head">
+              <div>
+                <div class="ing-name">ข้าวสวย</div>
+                <div class="ing-unit">หน่วย: กรัม</div>
+              </div>
+              <span class="ing-amount" data-show-grams>0 g</span>
+            </header>
+            <div class="ing-controls">
+              <button class="ctrl" data-step="-10">−</button>
+              <input class="ctrl-input" type="number" placeholder="กรัม" value="">
+              <button class="ctrl" data-step="+10">+</button>
+            </div>
+            <footer class="ing-meta">
+              <span class="badge warn">พลังงาน <span data-kcal>0</span> kcal</span>
+              <span class="badge">≈ ราคา <span data-price>0</span> บาท</span>
+            </footer>
+          </article>
+
+          <!-- 6. ตับไก่ -->
+          <article class="ing-card" data-name="ตับไก่">
+            <header class="ing-head">
+              <div>
+                <div class="ing-name">ตับไก่</div>
+                <div class="ing-unit">หน่วย: กรัม</div>
+              </div>
+              <span class="ing-amount" data-show-grams>0 g</span>
+            </header>
+            <div class="ing-controls">
+              <button class="ctrl" data-step="-10">−</button>
+              <input class="ctrl-input" type="number" placeholder="กรัม" value="">
+              <button class="ctrl" data-step="+10">+</button>
+            </div>
+            <footer class="ing-meta">
+              <span class="badge warn">พลังงาน <span data-kcal>0</span> kcal</span>
+              <span class="badge">≈ ราคา <span data-price>0</span> บาท</span>
+            </footer>
+          </article>
+
+          <!-- 7. หัวใจไก่ -->
+          <article class="ing-card" data-name="หัวใจไก่">
+            <header class="ing-head">
+              <div>
+                <div class="ing-name">หัวใจไก่</div>
+                <div class="ing-unit">หน่วย: กรัม</div>
+              </div>
+              <span class="ing-amount" data-show-grams>0 g</span>
+            </header>
+            <div class="ing-controls">
+              <button class="ctrl" data-step="-10">−</button>
+              <input class="ctrl-input" type="number" placeholder="กรัม" value="">
+              <button class="ctrl" data-step="+10">+</button>
+            </div>
+            <footer class="ing-meta">
+              <span class="badge warn">พลังงาน <span data-kcal>0</span> kcal</span>
+              <span class="badge">≈ ราคา <span data-price>0</span> บาท</span>
+            </footer>
+          </article>
+        </div>
+      </section>
+
+      <!-- RIGHT: สรุปผล (sticky) -->
+<aside class="panel sticky" id="summary-box">
+  <h3 class="panel-title">สรุปผล</h3>
+
+  <!-- น้ำหนักรวม -->
+  <div class="sum-row" data-unit="g">
+  <div class="sum-label">ปริมาณรวม <span id="sum-weight">0</span> / <span id="sum-target">0</span> g</div>
+  <div class="progress"><span class="bar"></span></div>
+  <div class="sum-badge" id="sum-weight-diff"></div>
+</div>
+
+
+  <!-- พลังงาน -->
+  <div class="sum-row" data-unit="kcal">
+    <div class="sum-label">
+      พลังงาน <span id="sum-kcal">0</span> / <span id="sum-kcal-target">0</span> kcal
+    </div>
+    <div class="progress"><span class="bar" style="width:0%"></span></div>
+    <div class="sum-badge" id="sum-kcal-diff"></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- โปรตีน -->
+  <div class="sum-row" data-unit="g">
+    <div class="sum-mini">
+      <span>โปรตีน</span>
+      <span><b id="sum-protein">0</b> / <span id="target-protein">0</span> g</span>
+    </div>
+    <div class="progress small"><span class="bar" style="width:0%"></span></div>
+    <div class="sum-badge" id="sum-protein-diff"></div>
+  </div>
+
+  <!-- ไขมัน -->
+  <div class="sum-row" data-unit="g">
+    <div class="sum-mini">
+      <span>ไขมัน</span>
+      <span><b id="sum-fat">0</b> / <span id="target-fat">0</span> g</span>
+    </div>
+    <div class="progress small"><span class="bar" style="width:0%"></span></div>
+    <div class="sum-badge" id="sum-fat-diff"></div>
+  </div>
+
+  <!-- คาร์บ -->
+  <div class="sum-row" data-unit="g">
+    <div class="sum-mini">
+      <span>คาร์บ</span>
+      <span><b id="sum-carb">0</b> / <span id="target-carb">0</span> g</span>
+    </div>
+    <div class="progress small"><span class="bar" style="width:0%"></span></div>
+    <div class="sum-badge" id="sum-carb-diff"></div>
+  </div>
+
+  <!-- โซเดียม -->
+  <div class="sum-row" data-unit="mg">
+    <div class="sum-mini">
+      <span>โซเดียม</span>
+      <span><b id="sum-sodium">0</b> / <span id="target-sodium">0</span> mg</span>
+    </div>
+    <div class="progress small"><span class="bar" style="width:0%"></span></div>
+    <div class="sum-badge" id="sum-sodium-diff"></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="sum-price">
+    <span>ราคาโดยประมาณ</span>
+    <b class="price" id="sum-price">0.00 บาท</b>
+  </div>
+
+  <!-- ปุ่มสั่งซื้อในแผงสรุปผล -->
+<div class="sum-actions">
+  <a href="order.html" class="sum-order">สั่งซื้อ</a>
+</div>
+
+  <div class="tips">
+    <h4 class="tips-title">คำแนะนำอัตโนมัติ</h4>
+    <ul class="tips-list">
+      <li id="tip1" class="tip-item">—</li>
+      <li id="tip2" class="tip-item">—</li>
+      <li id="tip3" class="tip-item">—</li>
+    </ul>
+  </div>
+</aside>
+</section>
+
+<footer class="container page-foot">
+      © <script>document.write(new Date().getFullYear())</script> Feeding Focus — HO g/kg + RER guard
+    </footer>
+  </main>
+
+<script>
+(() => {
+  'use strict';
+
+  /* ====== DATA (เหมือนเดิมทุกตัวเลข) ====== */
+  const DOG_GPK = {
+    "4_5m":   { low: 56, mod: 70, high: 84 },
+    "6_7m":   { low: 48, mod: 60, high: 72 },
+    "8_9m":   { low: 40, mod: 50, high: 60 },
+    "10_12m": { low: 32, mod: 40, high: 48 },
+    "1_2y":   { low: 24, mod: 30, high: 36 },
+    "3_7y":   { low: 20, mod: 25, high: 30 },
+    "8y_up":  { low: 16, mod: 20, high: 24 },
+  };
+  const ACTIVITY_FACTOR = { low: 1.0, mod: 1.2, high: 1.4 };
+  const BASE_MACROS = {
+    dog: { energy: 922, protein: 184.4/4, fat: 138.3/8, carb: 461/4, sodium: 1000 },
+  };
+  const INGREDIENTS = [
+    { name: 'อกไก่ไร้หนัง', calPerGram: 1.65, protein: 0.31,  fat: 0.036, carb: 0,     sodium: 0.74, iron: 0.007, unit: 'กรัม' },
+    { name: 'ปลาทู',       calPerGram: 1.49, protein: 0.25,  fat: 0.046, carb: 0,     sodium: 0.89, iron: 0.015, unit: 'กรัม' },
+    { name: 'ไข่ต้ม',       calPerGram: 1.55, protein: 0.13,  fat: 0.11,  carb: 0.01,  sodium: 1.24, iron: 0.012, unit: 'ฟอง', gramsPerUnit: 50 },
+    { name: 'ฟักทองต้ม',   calPerGram: 0.20, protein: 0.007, fat: 0.001, carb: 0.049, sodium: 0.01, iron: 0.008, unit: 'กรัม' },
+    { name: 'ข้าวสวย',     calPerGram: 1.30, protein: 0.027, fat: 0.003, carb: 0.282, sodium: 0.01, iron: 0.002, unit: 'กรัม' },
+    { name: 'ตับไก่',      calPerGram: 1.67, protein: 0.245, fat: 0.065, carb: 0.009, sodium: 0.76, iron: 0.116, unit: 'กรัม' },
+    { name: 'หัวใจไก่',    calPerGram: 1.85, protein: 0.26,  fat: 0.08,  carb: 0.001, sodium: 0.48, iron: 0.09,  unit: 'กรัม' },
+  ];
+  const PRICE_PER_100 = 29;
+
+  /* ====== UTIL ====== */
+  const $ = (sel, root=document) => root.querySelector(sel);
+  const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+  const num = v => isFinite(parseFloat(v)) ? parseFloat(v) : 0;
+  const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+
+  const calcRER  = kg => { const w = Math.max(0, num(kg)); return w ? 70*Math.pow(w,0.75) : 0; };
+  const toPct    = (val, tgt) => tgt>0 ? clamp((val/tgt)*100, 0, 100) : 0;
+
+  function computeTotals(selected){
+    const init = { calories:0, protein:0, fat:0, carb:0, sodium:0, iron:0, weight:0 };
+    return Object.entries(selected).reduce((acc,[name,value])=>{
+      const ing = INGREDIENTS.find(i=>i.name===name);
+      if(!ing || !value) return acc;
+      const grams = ing.gramsPerUnit ? value*(ing.gramsPerUnit||0) : value;
+      acc.calories += ing.calPerGram*grams;
+      acc.protein  += ing.protein*grams;
+      acc.fat      += ing.fat*grams;
+      acc.carb     += ing.carb*grams;
+      acc.sodium   += ing.sodium*grams;
+      acc.iron     += ing.iron*grams;
+      acc.weight   += grams;
+      return acc;
+    }, init);
+  }
+
+  const diffBadgeText = (diff, unit) => {
+    const a = Math.abs(diff);
+    if (a < 0.01) return 'พอดีเป๊ะ';
+    return (diff>0) ? `เกิน ${a.toFixed(1)} ${unit}` : `ขาด ${a.toFixed(1)} ${unit}`;
+  };
+
+  /* ====== DOM ELEMENTS ====== */
+  const elWeight   = $('#weight');
+  const elAge      = $('#ageKey');
+  const elActivity = $('#activity');
+  const elTargetG  = $('#target-grams');
+  const elTargetMER= $('#target-mer');
+
+  const sum = {
+    weight: $('#sum-weight'), targetWeight: $('#sum-target'),
+    kcal:   $('#sum-kcal'),   targetKcal:   $('#sum-kcal-target'),
+    protein: $('#sum-protein'), targetProtein: $('#target-protein'),
+    fat:     $('#sum-fat'),     targetFat:     $('#target-fat'),
+    carb:    $('#sum-carb'),    targetCarb:    $('#target-carb'),
+    sodium:  $('#sum-sodium'),  targetSodium:  $('#target-sodium'),
+    price:   $('#sum-price'),
+    rows: $$('.sum-row'),
+  };
+  const tipsEls = [$('#tip1'), $('#tip2'), $('#tip3')];
+
+  // Ingredient cards
+  const ingCards = $$('#ingredient-list .ing-card');
+
+  /* ====== STATE ====== */
+  // selected map เก็บ "จำนวนที่ผู้ใช้กรอก" (กรัม หรือ ฟอง) — computeTotals จะคูณกรัม/ฟองเอง
+  const selected = {}; // { 'อกไก่ไร้หนัง': 25, 'ไข่ต้ม': 1, ... }
+
+  /* ====== CORE CALC ====== */
+  function calculateTargets(){
+    const w = num(elWeight.value);
+    const ageKey = elAge.value;
+    const act = elActivity.value;
+
+    const gpk = (DOG_GPK[ageKey] && DOG_GPK[ageKey][act]) ? DOG_GPK[ageKey][act] : 0;
+    const targetGrams = w>0 ? w * gpk : 0;
+
+    const rer = calcRER(w);
+    const mer = rer * (ACTIVITY_FACTOR[act] || 1);
+    const base = BASE_MACROS.dog;
+    const scale = base.energy>0 ? (mer / base.energy) : 0;
+
+    const targets = {
+      energy: mer,
+      protein: base.protein * scale,
+      fat: base.fat * scale,
+      carb: base.carb * scale,
+      sodium: base.sodium * scale, // สุนัขใช้แบบนี้
+      grams: targetGrams,
+    };
+
+    // อัปเดตหัวข้อเป้าหมาย
+    if (elTargetG)   elTargetG.textContent   = targetGrams>0 ? targetGrams.toFixed(0) : '—';
+    if (elTargetMER) elTargetMER.textContent = mer>0 ? mer.toFixed(0) : '0';
+
+    return targets;
+  }
+
+  function syncCardUI(card){
+    const name = card.dataset.name;
+    const gramsPerUnit = num(card.dataset.gramsPerUnit);
+
+    const input = $('.ctrl-input', card);
+    const raw   = num(input.value);
+    const grams = gramsPerUnit ? raw * gramsPerUnit : raw;
+
+    const ing = INGREDIENTS.find(i=>i.name===name);
+    const kcal = grams * (ing?.calPerGram || 0);
+    const price = grams>0 ? (grams/100)*PRICE_PER_100 : 0;
+
+    const showGrams = $('[data-show-grams]', card);
+    const kcalSpan  = $('[data-kcal]', card);
+    const priceSpan = $('[data-price]', card);
+
+    if (showGrams) showGrams.textContent = grams>0 ? `${grams.toFixed(0)} g` : '0 g';
+    if (kcalSpan)  kcalSpan.textContent  = (Math.round(kcal * 10) / 10).toFixed(1);
+    if (priceSpan) priceSpan.textContent = price.toFixed(2);
+
+    selected[name] = raw>0 ? raw : 0; // เก็บค่าดิบ (หน่วยตาม input)
+  }
+
+  function setProgress(rowEl, value, target){
+  // อัปเดตความกว้างแท่ง
+  const bar = $('.progress .bar', rowEl);
+  if (bar) bar.style.width = `${toPct(value, target)}%`;
+
+  // อัปเดตป้าย "ขาด/เกิน/พอดี"
+  const unit = rowEl.dataset.unit || '';
+  const diff = value - target;
+  const badge = $('.sum-badge', rowEl);
+  if (badge){
+    if (Math.abs(diff) < 0.01)      badge.textContent = 'พอดีเป๊ะ';
+    else if (diff > 0)               badge.textContent = `เกิน ${Math.abs(diff).toFixed(1)} ${unit}`;
+    else                             badge.textContent = `ขาด ${Math.abs(diff).toFixed(1)} ${unit}`;
+  }
+
+  // ใส่คลาสสถานะให้แถว เพื่อให้แท่ง/ป้าย "เปลี่ยนสี"
+  rowEl.classList.remove('is-ok','is-warn','is-bad');
+  if (!(target > 0)) { rowEl.classList.add('is-ok'); return; }
+  const tol = 0.02;                  // อนุโลมคลาด 2% = พอดีก็ได้
+  const ratio = value / target;
+  if (ratio < 1 - tol)      rowEl.classList.add('is-bad');   // ขาด = แดง
+  else if (ratio > 1 + tol) rowEl.classList.add('is-warn');  // เกิน = ส้ม
+  else                      rowEl.classList.add('is-ok');    // พอดี = เขียว
+}
+
+  function renderTotals(targets, totals){
+    // ตัวเลขหลัก
+    sum.weight.textContent = totals.weight.toFixed(0);
+    sum.targetWeight.textContent = targets.grams.toFixed(0);
+    sum.kcal.textContent   = totals.calories.toFixed(0);
+    sum.targetKcal.textContent = targets.energy.toFixed(0);
+
+    // โปรเกรสหลัก 2 ตัว
+    setProgress(sum.rows[0], totals.weight, targets.grams); sum.rows[0].dataset.unit = 'g';
+    setProgress(sum.rows[1], totals.calories, targets.energy); sum.rows[1].dataset.unit = 'kcal';
+
+    // macro
+    sum.protein.textContent = totals.protein.toFixed(1);
+    sum.targetProtein.textContent = targets.protein.toFixed(1);
+    setProgress(sum.rows[2], totals.protein, targets.protein); sum.rows[2].dataset.unit = 'g';
+
+    sum.fat.textContent = totals.fat.toFixed(1);
+    sum.targetFat.textContent = targets.fat.toFixed(1);
+    setProgress(sum.rows[3], totals.fat, targets.fat); sum.rows[3].dataset.unit = 'g';
+
+    sum.carb.textContent = totals.carb.toFixed(1);
+    sum.targetCarb.textContent = targets.carb.toFixed(1);
+    setProgress(sum.rows[4], totals.carb, targets.carb); sum.rows[4].dataset.unit = 'g';
+
+    sum.sodium.textContent = totals.sodium.toFixed(0);
+    sum.targetSodium.textContent = targets.sodium.toFixed(0);
+    setProgress(sum.rows[5], totals.sodium, targets.sodium); sum.rows[5].dataset.unit = 'mg';
+
+    // ราคา
+    const totalPrice = (totals.weight/100)*PRICE_PER_100;
+    if (sum.price) sum.price.textContent = `${totalPrice.toFixed(2)} บาท`;
+
+    // Tips (เลือก 3 ข้อ)
+    const tips = [];
+    if (totals.weight < targets.grams*0.95) tips.push('น้ำหนักรวมยังขาดจากเป้า ลองเพิ่มโปรตีนไม่ติดมัน เช่น อกไก่ หรือ ปลาทู');
+    if (totals.calories > targets.energy*1.2) tips.push(`พลังงานเกิน ${(totals.calories/targets.energy*100-100).toFixed(0)}% ลดคาร์บ (ข้าว) หรือเพิ่มโปรตีนไม่ติดมัน`);
+    if (totals.protein < targets.protein*0.9) tips.push(`โปรตีนยังขาด ~${(targets.protein - totals.protein).toFixed(1)} g เพิ่ม อกไก่ หรือ ปลาทู`);
+    if (totals.fat < targets.fat*0.9) tips.push(`ไขมันยังขาด ~${(targets.fat - totals.fat).toFixed(1)} g เพิ่ม ไข่ต้ม หรือ ตับไก่`);
+    if (totals.carb < targets.carb*0.9) tips.push(`คาร์บยังขาด ~${(targets.carb - totals.carb).toFixed(1)} g เพิ่ม ข้าวสวย หรือ ฟักทองต้ม`);
+    if (!tips.length && targets.energy>0 && targets.grams>0) tips.push('เยี่ยม! ปริมาณรวมและพลังงานใกล้เคียงเป้าหมายแล้ว ✅');
+
+    tipsEls.forEach((el,i)=> el && (el.textContent = tips[i] || '—'));
+  }
+
+  function recalcAll(){
+    // อัปเดต UI ทุกการ์ด + สร้าง selected map
+    ingCards.forEach(syncCardUI);
+    const targets = calculateTargets();
+    const totals  = computeTotals(selected);
+    renderTotals(targets, totals);
+  }
+
+  /* ====== EVENTS ====== */
+  // ตั้งค่าพื้นฐาน
+  if (elWeight)   elWeight.addEventListener('input', recalcAll);
+  if (elAge)      elAge.addEventListener('change', recalcAll);
+  if (elActivity) elActivity.addEventListener('change', recalcAll);
+
+  // การ์ดวัตถุดิบ
+  ingCards.forEach(card=>{
+    const gramsPerUnit = num(card.dataset.gramsPerUnit);
+    const input = $('.ctrl-input', card);
+
+    // ปุ่ม -
+    const btnMinus = $('.ctrl[data-step^="-"]', card);
+    if (btnMinus) btnMinus.addEventListener('click', ()=>{
+      const step = num(btnMinus.dataset.step) || (gramsPerUnit? -1 : -10);
+      input.value = Math.max(0, num(input.value) + step);
+      syncCardUI(card); recalcAll();
+    });
+
+    // ปุ่ม +
+    const btnPlus = $('.ctrl[data-step^="+"]', card);
+    if (btnPlus) btnPlus.addEventListener('click', ()=>{
+      const step = num(btnPlus.dataset.step) || (gramsPerUnit? 1 : 10);
+      input.value = Math.max(0, num(input.value) + step);
+      syncCardUI(card); recalcAll();
+    });
+
+    // พิมพ์เอง
+    if (input) input.addEventListener('input', ()=>{ syncCardUI(card); recalcAll(); });
+  });
+
+  // เริ่มต้น
+  window.addEventListener('DOMContentLoaded', ()=>{
+    // ค่าเริ่มต้น (ถ้าในอินพุตว่าง ให้ใส่ค่าว่างไว้ ไม่บังคับ)
+    recalcAll();
+  });
+})();
+</script>
+
+
+  
